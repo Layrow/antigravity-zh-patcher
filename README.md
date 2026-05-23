@@ -11,10 +11,13 @@
 
 ### Antigravity IDE
 
-优先使用官方 VS Code 语言包机制：
+优先使用 VS Code 原生语言包机制，并补充 Antigravity IDE 自定义 NLS：
 
 - 安装 `MS-CEINTL.vscode-language-pack-zh-hans`
 - 设置 `~/.antigravity-ide/argv.json` 中的 `"locale": "zh-cn"`
+- 生成 `~/.antigravity-ide/languagepacks.json`
+- 预生成 `~/.antigravity-ide/clp/.../nls.messages.json`
+- 合并 `translations/antigravity-ide-overrides.zh-CN.json` 中的 Antigravity 专属文案
 
 运行：
 
@@ -22,7 +25,7 @@
 npm run ide:zh
 ```
 
-重启 `Antigravity IDE.app` 后生效。
+完全退出并重启 `Antigravity IDE.app` 后生效。
 
 ### Antigravity.app 壳层
 

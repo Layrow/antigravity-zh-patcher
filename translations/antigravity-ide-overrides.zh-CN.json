@@ -1,0 +1,192 @@
+{
+  "vs/base/common/constants/appMetadata": {
+    "app.description": "Google Antigravity IDE - 体验起飞"
+  },
+  "vs/base/common/policy": {
+    "terminalIntegratedConfigurationTitle": "集成终端"
+  },
+  "vs/platform/jetskiAgentWindow/common/jetskiAgentMode.contribution": {
+    "jetskiConfiguration": "智能体窗口"
+  },
+  "vs/platform/jetskiAgentWindow/electron-browser/settingsDevtools": {
+    "toggleSettingsDevTools": "切换设置开发者工具"
+  },
+  "vs/platform/jetskiWindow/electron-main/jetskiWindowService": {
+    "jetskiConfiguration": "Antigravity"
+  },
+  "vs/platform/menubar/electron-main/menubar": {
+    "mWorkspace": "工作区(&&W)"
+  },
+  "vs/platform/telemetry/common/telemetryService": {
+    "telemetry.antigravityCodeSnippet": "若要管理 {0} 如何存储代码片段遥测，请访问你的 [IDE 账号设置]({1})。\n"
+  },
+  "vs/workbench/browser/actions/windowActions": {
+    "openedRecentlyOpenedWorkspace": "工作区已在窗口中打开",
+    "activeOpenedRecentlyOpenedWorkspace": "工作区已在当前窗口中打开"
+  },
+  "vs/workbench/browser/parts/editor/editorGroupAntigravityWelcome": {
+    "watermark.chatWithCode": "使用智能体编程",
+    "antigravityWelcome.recentWorkspaces": "工作区",
+    "antigravityWelcome.googleInternal.openFigWorkspace": "打开 Fig 工作区",
+    "antigravityWelcome.generateProject": "生成项目",
+    "antigravityWelcome.googleExtensions": "Google 扩展",
+    "antigravityWelcome.securecoder.setup.desc": "设置你的 AI 安全伙伴，开始检测漏洞。",
+    "antigravityWelcome.securecoder.nudge.desc": "你的内置 AI 安全伙伴。",
+    "antigravityWelcome.installExtension.detail": "把 Google Data Cloud 的完整能力带入你的智能 IDE。",
+    "antigravityWelcome.gcloudDetected": "检测到 Google Cloud SDK。安装 Google 扩展以增强你的工作流。"
+  },
+  "vs/workbench/browser/parts/titlebar/menubarControl": {
+    "mWorkspace": "工作区(&&W)"
+  },
+  "vs/workbench/contrib/antigravityAgentSidePanel/browser/agentSidePanel.contribution": {
+    "reloadAgentSidePanel": "开发者：重新加载智能体侧边栏",
+    "sendPromptToAgentPanel": "{0}：发送提示到智能体面板"
+  },
+  "vs/workbench/contrib/antigravityBrowser/browser/browserToolbarAction": {
+    "openBrowser": "打开浏览器（预览）"
+  },
+  "vs/workbench/contrib/antigravityCascade/browser/antigravityCascade.contribution": {
+    "openAgent": "切换智能体"
+  },
+  "vs/workbench/contrib/antigravityMcpService/browser/antigravityMcp.contribution": {
+    "antigravityConfigurePluginsPage": "{0} 配置 MCP 页面",
+    "openConfigurePluginsPage": "{0}：管理 MCP 服务器"
+  },
+  "vs/workbench/contrib/antigravityMcpService/common/mcpIcon": {
+    "mcpIconLabel": "Antigravity MCP 编辑器页面中使用的 MCP 图标。"
+  },
+  "vs/workbench/contrib/antigravityPlugins/common/pluginsConfiguration": {
+    "antigravityPlugins.schema.description": "为 Antigravity 智能体贡献插件。安装扩展时，插件会复制到 ~/.gemini/<ideName>/plugins/。",
+    "antigravityPlugins.schema.markdownDescription": "为 Antigravity 智能体贡献插件。安装扩展时，每个插件文件夹都会复制到 `~/.gemini/<ideName>/plugins/<extensionId>.<pluginName>/`。\\n\\n**预期插件文件夹结构：**\\n\\n```\\nplugins/my-plugin/\\n  skills/             # 智能体技能\\n    my-skill/\\n      SKILL.md\\n  mcp_config.json     # MCP 服务器定义（可选）\\n```\\n\\n卸载扩展时，插件文件夹会自动移除。"
+  },
+  "vs/workbench/contrib/antigravitySidePanelFocus/browser/antigravitySidePanelFocus.contribution": {
+    "toggleChatFocus": "打开与智能体的聊天"
+  },
+  "vs/workbench/contrib/antigravityStatusBarSettings/browser/antigravitySettingsPage.contribution": {
+    "antigravitySettings": "{0} 设置",
+    "openAntigravitySettings": "打开 {0} 用户设置",
+    "openAntigravitySettingsWithId": "用设置 ID 打开 {0} 设置页",
+    "showBrowserAllowlist": "显示浏览器允许列表"
+  },
+  "vs/workbench/contrib/antigravityStatusBarSettings/browser/antigravityStatusBarSettingsPanel": {
+    "openQuickSettingsPanel": "快速设置面板"
+  },
+  "vs/workbench/contrib/chat/browser/actions/chatAccessibilityHelp": {
+    "chat.showHiddenTerminals": "如果存在隐藏的聊天终端，你可以调用“查看隐藏的聊天终端”命令{0}。",
+    "chat.focusMostRecentTerminal": "若要聚焦上一次运行工具的聊天终端，请调用“聚焦最近的聊天终端”命令{0}。",
+    "chat.focusMostRecentTerminalOutput": "若要聚焦上一次终端工具的输出，请调用“聚焦最近的聊天终端输出”命令{0}。"
+  },
+  "vs/workbench/contrib/chat/browser/actions/chatActions": {
+    "chat.editToolApproval.description": "编辑或管理 AI 聊天智能体的工具批准和确认偏好。"
+  },
+  "vs/workbench/contrib/chat/browser/actions/chatCloseNotification": {
+    "chat.openAgentSessions": "打开智能体会话"
+  },
+  "vs/workbench/contrib/chat/browser/actions/chatContext": {
+    "terminal": "终端"
+  },
+  "vs/workbench/contrib/chat/browser/actions/chatExecuteActions": {
+    "sendToAgent": "发送给智能体"
+  },
+  "vs/workbench/contrib/chat/browser/agentSessions/agentSessions.contribution": {
+    "agentSessions.view.label": "智能体",
+    "filterAgentSessions": "筛选智能体会话"
+  },
+  "vs/workbench/contrib/chat/browser/agentSessions/agentSessionsActions": {
+    "refresh": "刷新智能体会话",
+    "find": "查找智能体会话",
+    "showAgentSessionsSidebar": "显示智能体会话侧边栏",
+    "hideAgentSessionsSidebar": "隐藏智能体会话侧边栏"
+  },
+  "vs/workbench/contrib/chat/browser/agentSessions/agentSessionsViewer": {
+    "agentSessions": "智能体会话"
+  },
+  "vs/workbench/contrib/chat/browser/chat.contribution": {
+    "chat.mcp.gallery.enabled": "启用 Model Context Protocol (MCP) 服务器的默认扩展市场。"
+  },
+  "vs/workbench/contrib/chat/browser/chatAttachmentWidgets": {
+    "chat.terminalCommand": "终端命令，{0}",
+    "chat.terminalCommandHoverCommandTitleExit": "命令：{0}，退出码：{1}",
+    "chat.terminalCommandHoverCommandTitle": "命令"
+  },
+  "vs/workbench/contrib/chat/browser/chatContentParts/chatAnonymousRateLimitedPart": {
+    "enableMoreAIFeatures": "启用更多 AI 功能"
+  },
+  "vs/workbench/contrib/chat/browser/chatContentParts/chatMcpServersInteractionContentPart": {
+    "mcp.working.mcp": "正在激活 MCP 扩展...",
+    "mcp.starting.servers": "正在启动 MCP 服务器 {0}..."
+  },
+  "vs/workbench/contrib/chat/browser/chatContentParts/toolInvocationParts/chatTerminalToolProgressPart": {
+    "chatTerminalOutputAriaLabel": "{0} 的终端输出",
+    "chatTerminalOutputAccessibleViewHeader": "命令：{0}",
+    "chatTerminalOutputUnavailable": "命令输出已不可用。",
+    "chat.terminalOutputTerminalMissing": "终端已不可用。",
+    "chat.terminalOutputCommandMissing": "命令信息不可用。",
+    "showTerminal": "显示并聚焦终端",
+    "focusTerminal": "聚焦终端"
+  },
+  "vs/workbench/contrib/chat/browser/chatContentParts/toolInvocationParts/chatToolConfirmationSubPart": {
+    "allowReview": "允许并审核",
+    "allowSkip": "允许并跳过结果审核"
+  },
+  "vs/workbench/contrib/chat/browser/chatManagement/chatManagementEditor": {
+    "enableAIFeatures": "使用 AI 功能",
+    "enableMoreAIFeatures": "启用更多 AI 功能",
+    "enableCopilotButton": "启用 AI 功能",
+    "signInToUseAIFeatures": "登录以使用 AI 功能"
+  },
+  "vs/workbench/contrib/chat/browser/chatModelsWidget": {
+    "models.agentMode": "智能体模式",
+    "capability.agent": "智能体模式"
+  },
+  "vs/workbench/contrib/chat/browser/chatSessions/view/chatSessionsView": {
+    "chat.agent.sessions.title": "智能体会话",
+    "chat.agent.sessions": "智能体会话"
+  },
+  "vs/workbench/contrib/chat/browser/chatSetup/chatSetupContributions": {
+    "review": "代码审核",
+    "restartExtensionHost.reason.enable": "正在启用 AI 功能",
+    "restartExtensionHost.reason.disable": "正在禁用 AI 功能",
+    "triggerChatSetup": "免费使用 Copilot 的 AI 功能...",
+    "forceSignIn": "登录以使用 AI 功能",
+    "triggerChatSetupFromAccounts": "登录以使用 AI 功能...",
+    "hideChatSetup": "了解如何隐藏 AI 功能"
+  },
+  "vs/workbench/contrib/chat/browser/chatSetup/chatSetupController": {
+    "unknownSignInErrorDetail": "你必须登录才能使用 AI 功能。"
+  },
+  "vs/workbench/contrib/chat/browser/chatSetup/chatSetupProviders": {
+    "setupToolDisplayName": "新建工作区"
+  },
+  "vs/workbench/contrib/chat/browser/chatSetup/chatSetupRunner": {
+    "chatWorkspaceTrust": "AI 功能目前仅支持受信任的工作区。",
+    "setupAIButton": "使用 AI 功能",
+    "startUsing": "开始使用 AI 功能",
+    "enableMore": "启用更多 AI 功能",
+    "signIn": "登录以使用 AI 功能"
+  },
+  "vs/workbench/contrib/chat/browser/chatStatus/chatStatusDashboard": {
+    "chatAgentSessionsTitle": "智能体会话",
+    "viewChatSessionsLabel": "查看智能体会话",
+    "viewChatSessionsTooltip": "查看智能体会话",
+    "settingsLabel": "设置",
+    "settingsTooltip": "打开设置",
+    "activateDescription": "设置 Copilot 以使用 AI 功能。",
+    "enableMoreDescription": "登录以启用更多 Copilot AI 功能。",
+    "enableDescription": "启用 Copilot 以使用 AI 功能。",
+    "signInDescription": "登录以使用 Copilot AI 功能。",
+    "enableAIFeatures": "使用 AI 功能",
+    "enableMoreAIFeatures": "启用更多 AI 功能",
+    "enableCopilotButton": "启用 AI 功能",
+    "signInToUseAIFeatures": "登录以使用 AI 功能"
+  },
+  "vs/workbench/contrib/chat/browser/chatViewTitleControl": {
+    "backgroundSession": "{0} 智能体会话"
+  },
+  "vs/workbench/contrib/chat/browser/languageModelToolsConfirmationService": {
+    "allowWorkspace": "在此工作区中允许",
+    "allowServerWorkspace": "在此工作区中允许来自 {0} 的工具",
+    "allowSessionPost": "本次会话中允许且无需审核",
+    "allowWorkspacePost": "此工作区中允许且无需审核"
+  }
+}

@@ -173,6 +173,6 @@ node scripts/restore.js
 
 ## 建议下一步
 
-1. 已完成 IDE 汉化原型：安装中文语言包并设置 `zh-cn`。
+1. 已深化 IDE 汉化：安装中文语言包、设置 `zh-cn`，并生成 `languagepacks.json`、NLS 缓存和 Antigravity 专属 override。
 2. 已完成 `Antigravity.app` 壳层补丁脚本：能生成中文 `app.asar`，但 macOS 当前拒绝直接写回 `/Applications`。
 3. 下一步研究 `language_server` 提供的主 UI 是否能以资源覆盖方式汉化。

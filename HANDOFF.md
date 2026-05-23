@@ -17,7 +17,7 @@
 - 项目目录：`/Users/fyh/game/tc`
 - Git 已初始化。
 - 已提交过一次基础版本：`278ba20 feat: 添加 Antigravity 汉化脚本`
-- `Antigravity IDE.app` 走 VS Code 中文语言包方案。
+- `Antigravity IDE.app` 走 VS Code 中文语言包方案，并生成 Antigravity 专属 NLS override。
 - `Antigravity.app` 通过重打包 `app.asar` 注入壳层翻译和 Settings DOM 翻译。
 
 已知探测结果：
@@ -83,12 +83,13 @@ npm run app:install
 - `README.md`：给用户看的说明。
 - `antigravity-zh-plan.md`：整体汉化规划。
 - `scripts/probe-antigravity.js`：探测本机 Antigravity 安装情况。
-- `scripts/configure-ide-zh.js`：配置 Antigravity IDE 的中文语言包和 locale。
+- `scripts/configure-ide-zh.js`：配置 Antigravity IDE 的中文语言包、locale、`languagepacks.json` 和 NLS 缓存。
 - `scripts/patch-antigravity-shell.js`：生成主应用 `app.asar` 汉化补丁。
 - `scripts/settings-dom-translator.js`：生成注入 Settings 页面的 DOM 文案替换脚本。
 - `scripts/install-antigravity-zh.sh`：一键安装脚本，包含退出进程、生成补丁、sudo 覆盖和校验。
 - `scripts/restore.js`：从备份恢复。
 - `translations/antigravity-shell.zh-CN.json`：Electron 壳层翻译词表。
+- `translations/antigravity-ide-overrides.zh-CN.json`：Antigravity IDE 自定义 NLS 翻译补丁。
 - `translations/settings-dom.zh-CN.json`：Settings 页面 DOM 翻译词表。
 
 ## 重要风险和经验
@@ -151,4 +152,3 @@ docs: 补充项目接续说明
 feat: 扩展 Settings 汉化词表
 fix: 修复汉化补丁导致白屏的问题
 ```
-
