@@ -53,7 +53,12 @@ export function buildSettingsDomTranslator(translations) {
       }
     }
   };
+  const translateDocumentTitle = () => {
+    const next = translateExact(document.title);
+    if (next !== document.title) document.title = next;
+  };
   const walk = (root) => {
+    translateDocumentTitle();
     if (!root) return;
     if (root.nodeType === Node.TEXT_NODE) {
       translateTextNode(root);

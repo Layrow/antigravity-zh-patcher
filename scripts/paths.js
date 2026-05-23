@@ -11,6 +11,8 @@ export const apps = {
 export const resources = {
   antigravityAsar: path.join(apps.antigravity, "Contents/Resources/app.asar"),
   ideProduct: path.join(apps.ide, "Contents/Resources/app/product.json"),
+  ideMainBundle: path.join(apps.ide, "Contents/Resources/app/out/main.js"),
+  ideAgentBundle: path.join(apps.ide, "Contents/Resources/app/out/jetskiAgent/main.js"),
   ideNlsMessages: path.join(apps.ide, "Contents/Resources/app/out/nls.messages.json"),
   ideNlsKeys: path.join(apps.ide, "Contents/Resources/app/out/nls.keys.json"),
   ideCli: path.join(apps.ide, "Contents/Resources/app/bin/antigravity-ide"),

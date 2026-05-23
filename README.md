@@ -25,7 +25,13 @@
 npm run ide:zh
 ```
 
-完全退出并重启 `Antigravity IDE.app` 后生效。
+如果 macOS 拒绝脚本直接写入 `/Applications/Antigravity IDE.app`，会在 `dist/ide-settings/` 下生成待安装文件。此时运行：
+
+```bash
+npm run ide:install-settings
+```
+
+该命令会退出 `Antigravity IDE.app`，并使用管理员权限安装 Settings 窗口和首选项菜单相关补丁。完全退出并重启 `Antigravity IDE.app` 后生效。
 
 ### Antigravity.app 壳层
 

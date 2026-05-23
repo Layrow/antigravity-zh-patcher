@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "probe": "node scripts/probe-antigravity.js",
-    "ide:zh": "node scripts/configure-ide-zh.js",
+    "ide:zh": "node scripts/configure-ide-zh.js && node scripts/patch-antigravity-ide-settings.js",
+    "ide:patch-settings": "node scripts/patch-antigravity-ide-settings.js",
+    "ide:install-settings": "bash scripts/install-antigravity-ide-settings-zh.sh",
     "shell:patch": "node scripts/patch-antigravity-shell.js",
     "app:install": "bash scripts/install-antigravity-zh.sh",
     "restore": "node scripts/restore.js"

@@ -41,6 +41,12 @@ npm run probe
 npm run ide:zh
 ```
 
+如果 IDE Settings 相关文件被 macOS 拦截写入，安装生成的补丁：
+
+```bash
+npm run ide:install-settings
+```
+
 生成主应用汉化补丁：
 
 ```bash
@@ -84,12 +90,15 @@ npm run app:install
 - `antigravity-zh-plan.md`：整体汉化规划。
 - `scripts/probe-antigravity.js`：探测本机 Antigravity 安装情况。
 - `scripts/configure-ide-zh.js`：配置 Antigravity IDE 的中文语言包、locale、`languagepacks.json` 和 NLS 缓存。
+- `scripts/patch-antigravity-ide-settings.js`：给 Antigravity IDE Settings 窗口注入 DOM 翻译，并补丁 IDE NLS messages。
+- `scripts/install-antigravity-ide-settings-zh.sh`：退出 Antigravity IDE 后用 sudo 安装 IDE Settings 补丁。
 - `scripts/patch-antigravity-shell.js`：生成主应用 `app.asar` 汉化补丁。
 - `scripts/settings-dom-translator.js`：生成注入 Settings 页面的 DOM 文案替换脚本。
 - `scripts/install-antigravity-zh.sh`：一键安装脚本，包含退出进程、生成补丁、sudo 覆盖和校验。
 - `scripts/restore.js`：从备份恢复。
 - `translations/antigravity-shell.zh-CN.json`：Electron 壳层翻译词表。
 - `translations/antigravity-ide-overrides.zh-CN.json`：Antigravity IDE 自定义 NLS 翻译补丁。
+- `translations/antigravity-ide-settings-dom.zh-CN.json`：Antigravity IDE Settings 窗口 DOM 翻译词表。
 - `translations/settings-dom.zh-CN.json`：Settings 页面 DOM 翻译词表。
 
 ## 重要风险和经验
