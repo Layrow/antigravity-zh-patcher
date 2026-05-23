@@ -1,0 +1,17 @@
+{
+  "name": "antigravity-zh-patcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Antigravity 2.0 Chinese localization helper scripts",
+  "type": "module",
+  "scripts": {
+    "probe": "node scripts/probe-antigravity.js",
+    "ide:zh": "node scripts/configure-ide-zh.js",
+    "shell:patch": "node scripts/patch-antigravity-shell.js",
+    "app:install": "bash scripts/install-antigravity-zh.sh",
+    "restore": "node scripts/restore.js"
+  },
+  "devDependencies": {
+    "@electron/asar": "^3.4.1"
+  }
+}
