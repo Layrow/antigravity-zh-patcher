@@ -4,6 +4,16 @@ export function buildSettingsDomTranslator(translations) {
   const translations = ${JSON.stringify(translations)};
   const attrs = ["aria-label", "title", "placeholder", "data-tooltip-content"];
   const normalize = (value) => value.replace(/\\s+/g, " ").trim();
+  const phraseEntries = Object.entries(translations)
+    .filter(([from]) => from.length > 12 || /[\\s.,:;!?()[\\]/-]/.test(from))
+    .sort((a, b) => b[0].length - a[0].length);
+  const replacePhrases = (value) => {
+    let next = value;
+    for (const [from, to] of phraseEntries) {
+      if (next.includes(from)) next = next.split(from).join(to);
+    }
+    return next;
+  };
   const translateExact = (value) => {
     if (!value || typeof value !== "string") return value;
     if (Object.prototype.hasOwnProperty.call(translations, value)) return translations[value];
@@ -24,6 +34,10 @@ export function buildSettingsDomTranslator(translations) {
         .replace(/\\bminute\\b/g, "分钟");
       return "将在 " + duration + " 后刷新";
     }
+    const replaced = replacePhrases(value);
+    if (replaced !== value) return replaced;
+    const replacedNormalized = replacePhrases(normalized);
+    if (replacedNormalized !== normalized) return replacedNormalized;
     return value;
   };
   const translateTextNode = (node) => {
