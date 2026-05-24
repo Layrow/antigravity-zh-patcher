@@ -57,42 +57,77 @@ export function buildSettingsDomTranslator(translations) {
     const next = translateExact(document.title);
     if (next !== document.title) document.title = next;
   };
-  const walk = (root) => {
-    translateDocumentTitle();
-    if (!root) return;
-    if (root.nodeType === Node.TEXT_NODE) {
-      translateTextNode(root);
-      return;
-    }
-    if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE) return;
-    if (root.nodeType === Node.ELEMENT_NODE) translateElement(root);
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.nodeType === Node.TEXT_NODE) translateTextNode(node);
-      else translateElement(node);
-    }
-  };
   let pending = false;
+  const activeShadowRoots = new Set();
+  const observedRoots = new Set();
   const schedule = () => {
     if (pending) return;
     pending = true;
     requestAnimationFrame(() => {
       pending = false;
       walk(document.body);
+      for (const root of activeShadowRoots) {
+        walk(root);
+      }
     });
   };
-  const start = () => {
-    walk(document.body);
+  const observeRoot = (root) => {
+    if (!root || observedRoots.has(root)) return;
+    observedRoots.add(root);
     const observer = new MutationObserver(schedule);
-    observer.observe(document.documentElement, {
+    observer.observe(root, {
       childList: true,
       subtree: true,
       characterData: true,
       attributes: true,
       attributeFilter: attrs
     });
-    window.__ANTIGRAVITY_ZH_TRANSLATOR__ = { translations, rerun: () => walk(document.body) };
+  };
+  const registerShadowRoot = (shadowRoot) => {
+    if (!shadowRoot || activeShadowRoots.has(shadowRoot)) return;
+    activeShadowRoots.add(shadowRoot);
+    observeRoot(shadowRoot);
+    walk(shadowRoot);
+  };
+  const walk = (root) => {
+    if (!root) return;
+    translateDocumentTitle();
+    if (root.nodeType === Node.TEXT_NODE) {
+      translateTextNode(root);
+      return;
+    }
+    if (root.nodeType === Node.ELEMENT_NODE) {
+      translateElement(root);
+      if (root.shadowRoot) {
+        registerShadowRoot(root.shadowRoot);
+      }
+    }
+    let child = root.firstChild;
+    while (child) {
+      walk(child);
+      child = child.nextSibling;
+    }
+  };
+  const start = () => {
+    walk(document.body);
+    observeRoot(document.documentElement);
+    const originalAttachShadow = Element.prototype.attachShadow;
+    Element.prototype.attachShadow = function(init) {
+      const shadowRoot = originalAttachShadow.call(this, init);
+      if (shadowRoot) {
+        registerShadowRoot(shadowRoot);
+      }
+      return shadowRoot;
+    };
+    window.__ANTIGRAVITY_ZH_TRANSLATOR__ = {
+      translations,
+      rerun: () => {
+        walk(document.body);
+        for (const root of activeShadowRoots) {
+          walk(root);
+        }
+      }
+    };
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
   else start();
