@@ -7,8 +7,6 @@
 - `/Applications/Antigravity.app`
 - `/Applications/Antigravity IDE.app`
 
-不处理 `Antigravity Manager.app`。
-
 > 本项目不是 Google 或 Antigravity 官方项目。它只发布补丁脚本和翻译表，不发布修改后的应用程序。
 
 ## 功能
@@ -35,7 +33,7 @@
 ## 快速开始
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Layrow/antigravity-zh-patcher.git
 cd antigravity-zh-patcher
 npm install
 npm run validate
