@@ -18,7 +18,7 @@ sleep 2
 remaining="$(
   ps -axo pid,ppid,comm,args \
     | grep -Ei 'Antigravity|antigravity|language_server' \
-    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/tc|Visual Studio Code' \
+    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
     || true
 )"
 
@@ -32,7 +32,7 @@ fi
 remaining="$(
   ps -axo pid,ppid,comm,args \
     | grep -Ei 'Antigravity|antigravity|language_server' \
-    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/tc|Visual Studio Code' \
+    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
     || true
 )"
 

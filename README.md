@@ -95,7 +95,7 @@ dist/antigravity-app.zh-CN.asar
 此时请确认 Antigravity 已完全退出，然后手动安装：
 
 ```bash
-sudo cp "/Users/fyh/game/tc/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
+sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
 ```
 
 ## 探测
@@ -123,14 +123,14 @@ Antigravity 官方更新很可能会覆盖：
 所以更新后汉化补丁通常会失效。更新后不要直接复制旧的 `dist/antigravity-app.zh-CN.asar`，应重新生成适配当前版本的补丁：
 
 ```bash
-cd /Users/fyh/game/tc
+cd /Users/fyh/game/antigravity-zh-patcher
 npm run shell:patch
 ```
 
 然后完全退出 Antigravity，再安装新生成的补丁：
 
 ```bash
-sudo cp "/Users/fyh/game/tc/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
+sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
 ```
 
 推荐流程：
@@ -144,7 +144,7 @@ sudo cp "/Users/fyh/game/tc/dist/antigravity-app.zh-CN.asar" "/Applications/Anti
 
 ```bash
 npm run shell:patch
-sudo cp "/Users/fyh/game/tc/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
+sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
 ```
 
 ## 安装补丁前必须退出

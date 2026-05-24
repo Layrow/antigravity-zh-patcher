@@ -14,7 +14,7 @@
 
 ## 当前状态
 
-- 项目目录：`/Users/fyh/game/tc`
+- 项目目录：`/Users/fyh/game/antigravity-zh-patcher`
 - Git 已初始化。
 - 已提交过一次基础版本：`278ba20 feat: 添加 Antigravity 汉化脚本`
 - `Antigravity IDE.app` 走 VS Code 中文语言包方案，并生成 Antigravity 专属 NLS override。
@@ -70,7 +70,7 @@ npm run restore
 日常重新安装汉化时，优先运行：
 
 ```bash
-cd /Users/fyh/game/tc
+cd /Users/fyh/game/antigravity-zh-patcher
 npm run app:install
 ```
 
