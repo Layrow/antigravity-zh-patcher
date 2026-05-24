@@ -1,0 +1,30 @@
+name: Translation request
+description: 提交漏翻或译法建议
+title: "[Translation]: "
+labels: ["translation"]
+body:
+  - type: textarea
+    id: source
+    attributes:
+      label: 英文原文
+      description: 请贴出界面上看到的英文文案。
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议译文
+      description: 如果有建议译法，请写在这里。
+  - type: dropdown
+    id: area
+    attributes:
+      label: 出现位置
+      options:
+        - Antigravity.app
+        - Antigravity IDE.app
+        - 不确定
+  - type: textarea
+    id: context
+    attributes:
+      label: 上下文
+      description: 描述在哪个页面、按钮、弹窗或菜单看到该文案。

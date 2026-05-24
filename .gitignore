@@ -6,3 +6,7 @@ extracted_app/
 scratch/
 .idea/
 .DS_Store
+.env
+.env.*
+*.log
+npm-debug.log*

@@ -1,0 +1,41 @@
+name: Bug report
+description: 报告补丁、安装或恢复问题
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 问题描述
+      description: 简要说明发生了什么。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请列出你执行的命令和看到的结果。
+      placeholder: |
+        1. npm run probe
+        2. npm run app:install
+        3. 打开应用后...
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Antigravity 版本
+      placeholder: Antigravity 2.0.6 / Antigravity IDE 2.0.3
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关输出
+      description: 请删除账号、token、私有路径等敏感信息。
+      render: shell
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 检查项
+      options:
+        - label: 我已经运行过 `npm run validate`
+        - label: 我确认没有粘贴敏感信息

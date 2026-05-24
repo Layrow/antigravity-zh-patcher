@@ -1,11 +1,26 @@
 {
   "name": "antigravity-zh-patcher",
   "version": "0.1.0",
-  "private": true,
-  "description": "Antigravity 2.0 Chinese localization helper scripts",
+  "description": "Chinese localization patcher for Antigravity 2.0 on macOS",
+  "license": "MIT",
+  "author": "fyh",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "antigravity",
+    "localization",
+    "zh-CN",
+    "chinese",
+    "patcher",
+    "macos",
+    "electron"
+  ],
   "scripts": {
     "probe": "node scripts/probe-antigravity.js",
+    "validate": "node scripts/validate.js",
+    "preflight": "npm run validate && npm run probe",
     "ide:zh": "node scripts/configure-ide-zh.js && node scripts/patch-antigravity-ide-settings.js",
     "ide:patch-settings": "node scripts/patch-antigravity-ide-settings.js",
     "ide:install-settings": "bash scripts/install-antigravity-ide-settings-zh.sh",

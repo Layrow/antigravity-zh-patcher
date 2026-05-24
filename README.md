@@ -1,184 +1,183 @@
-# Antigravity 2.0 汉化辅助脚本
+# antigravity-zh-patcher
 
-本项目用于辅助汉化：
+面向 macOS 的 Antigravity 2.0 中文本地化补丁工具。
+
+这个项目通过脚本和翻译表辅助汉化：
 
 - `/Applications/Antigravity.app`
 - `/Applications/Antigravity IDE.app`
 
 不处理 `Antigravity Manager.app`。
 
-## 已完成内容
+> 本项目不是 Google 或 Antigravity 官方项目。它只发布补丁脚本和翻译表，不发布修改后的应用程序。
 
-### Antigravity IDE
+## 功能
 
-优先使用 VS Code 原生语言包机制，并补充 Antigravity IDE 自定义 NLS：
+- 探测本机 Antigravity / Antigravity IDE 安装路径和关键资源。
+- 为 `Antigravity.app` 生成中文 `app.asar` 补丁。
+- 为主应用 Settings 页面注入 DOM 文案翻译。
+- 为 `Antigravity IDE.app` 配置 VS Code 中文语言包机制。
+- 为 Antigravity IDE Settings 窗口和首选项菜单补充中文补丁。
+- 自动备份原始资源，支持恢复。
+- 提供一键安装脚本，安装前会退出相关进程。
 
-- 安装 `MS-CEINTL.vscode-language-pack-zh-hans`
-- 设置 `~/.antigravity-ide/argv.json` 中的 `"locale": "zh-cn"`
-- 生成 `~/.antigravity-ide/languagepacks.json`
-- 预生成 `~/.antigravity-ide/clp/.../nls.messages.json`
-- 合并 `translations/antigravity-ide-overrides.zh-CN.json` 中的 Antigravity 专属文案
+## 支持状态
 
-运行：
+当前验证环境：
 
-```bash
-npm run ide:zh
-```
+- macOS
+- Antigravity `2.0.6`
+- Antigravity IDE `2.0.3`
+- Node.js `>=20`
 
-如果 macOS 拒绝脚本直接写入 `/Applications/Antigravity IDE.app`，会在 `dist/ide-settings/` 下生成待安装文件。此时运行：
+其他版本可能可以使用，但更新后资源结构可能变化。建议每次 Antigravity 更新后先运行探测和验证。
 
-```bash
-npm run ide:install-settings
-```
-
-该命令会退出 `Antigravity IDE.app`，并使用管理员权限安装 Settings 窗口和首选项菜单相关补丁。完全退出并重启 `Antigravity IDE.app` 后生效。
-
-### Antigravity.app 壳层
-
-处理两类内容：
-
-1. Electron 壳层文案，例如：
-
-- 新建窗口
-- 打开工作区
-- 检查更新
-- 加载提示
-- 部分错误提示
-
-2. Settings 页面 DOM 文案，例如：
-
-- Permissions / Browser / Models / Appearance / App 等设置页签
-- 终端命令自动执行、浏览器工具、沙盒、审核策略等设置项
-- 设置项描述、占位符、按钮标题、tooltip/aria 文案
-
-运行：
+## 快速开始
 
 ```bash
-npm run shell:patch
+git clone <your-repo-url>
+cd antigravity-zh-patcher
+npm install
+npm run validate
 ```
 
-## 一键安装脚本
+查看安装状态：
 
-推荐日常使用这个入口：
+```bash
+npm run preflight
+```
+
+安装主应用汉化：
 
 ```bash
 npm run app:install
 ```
 
-这个脚本会自动完成：
+安装 IDE 汉化：
 
-1. 正常退出 `Antigravity.app`。
-2. 结束残留的 `Antigravity Helper` / `language_server` 进程。
-3. 重新生成当前版本可用的汉化补丁。
-4. 使用管理员权限覆盖 `Antigravity.app` 内部的 `app.asar`。
-5. 对比 `dist` 文件和实际安装文件的 hash，确认复制结果一致。
+```bash
+npm run ide:zh
+npm run ide:install-settings
+```
 
-适用场景：
+脚本写入 `/Applications` 时可能要求输入 macOS 管理员密码。
 
-- Antigravity 更新后，需要重新安装汉化。
-- 手动复制前，需要先把后台进程退干净。
-- 不想分开执行 `npm run shell:patch` 和 `sudo cp`。
+## 命令说明
 
-注意事项：
+| 命令 | 说明 |
+| --- | --- |
+| `npm run validate` | 检查 JS、Shell 和 JSON，适合 CI 和贡献者本地开发 |
+| `npm run preflight` | 先运行源码校验，再探测本机 Antigravity 安装资源 |
+| `npm run probe` | 输出 Antigravity 安装路径、版本和关键资源状态 |
+| `npm run shell:patch` | 生成主应用 `app.asar` 汉化补丁 |
+| `npm run app:install` | 退出主应用、生成补丁并用管理员权限安装 |
+| `npm run ide:zh` | 配置 IDE 中文语言包、NLS 缓存和 Settings 补丁 |
+| `npm run ide:patch-settings` | 只生成 IDE Settings 补丁 |
+| `npm run ide:install-settings` | 退出 IDE 并安装 IDE Settings 补丁 |
+| `npm run restore` | 从 `backups/` 恢复最近备份 |
 
-- 脚本执行过程中会要求输入 macOS 管理员密码。
-- 运行前最好先打开一次官方新版 Antigravity，确认它本身可以正常启动。
-- 不要在 Antigravity 运行时手动覆盖 `app.asar`，否则可能出现白屏。
-- 如果补丁后白屏，先执行恢复流程，再重新生成补丁。
+## 工作方式
 
-如果 macOS 拒绝脚本直接写入 `/Applications/Antigravity.app`，脚本仍会生成：
+### Antigravity.app
+
+主应用处理两类内容：
+
+- Electron 壳层文案，例如菜单、托盘、加载提示和部分错误提示。
+- Settings 页面 DOM 文案，例如权限、模型、浏览器、外观、应用等设置项。
+
+脚本会生成：
 
 ```bash
 dist/antigravity-app.zh-CN.asar
 ```
 
-此时请确认 Antigravity 已完全退出，然后手动安装：
+如果系统拦截自动安装，可以在完全退出 Antigravity 后手动安装：
 
 ```bash
-sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
+sudo cp "dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
 ```
 
-## 探测
+### Antigravity IDE.app
+
+IDE 处理三层内容：
+
+- 安装并启用 `MS-CEINTL.vscode-language-pack-zh-hans`。
+- 生成 `~/.antigravity-ide/languagepacks.json` 和 NLS 缓存。
+- 对 Antigravity 自定义 Settings 窗口注入 DOM 翻译。
+
+如果 Settings 补丁无法直接写入 `/Applications`，脚本会生成：
 
 ```bash
-npm run probe
+dist/ide-settings/
 ```
+
+之后运行：
+
+```bash
+npm run ide:install-settings
+```
+
+## 更新后怎么办
+
+Antigravity 官方更新很可能覆盖应用内资源。推荐流程：
+
+1. 更新 Antigravity。
+2. 打开官方新版，确认未打补丁时能正常启动。
+3. 完全退出 Antigravity 和 Antigravity IDE。
+4. 在项目目录运行：
+
+```bash
+npm run app:install
+npm run ide:zh
+npm run ide:install-settings
+```
+
+5. 重新打开应用，重点检查 Settings 页面和首选项菜单。
 
 ## 恢复
+
+脚本会把原始资源备份到：
+
+```bash
+backups/
+```
+
+自动恢复：
 
 ```bash
 npm run restore
 ```
 
-备份文件位于 `backups/`，该目录不会提交到 Git。
+如果恢复脚本被 macOS 权限拦截，可以从 `backups/` 中选择对应备份文件手动复制回原路径。
 
-## 更新后的处理方式
+## 风险
 
-Antigravity 官方更新很可能会覆盖：
+- 修改 `.app` 内部资源会破坏原始代码签名。
+- 不要在应用运行时覆盖 `app.asar` 或 IDE bundle，否则可能出现白屏或资源状态不一致。
+- 官方更新后旧补丁可能失效，需要重新生成。
+- DOM 文案替换方式比硬改二进制更容易恢复，但可能漏掉动态文案。
+- `language_server` 是二进制文件，本项目当前不直接修改它。
 
-```bash
-/Applications/Antigravity.app/Contents/Resources/app.asar
+## 项目结构
+
+```text
+.
+├── scripts/          # 探测、补丁、安装、恢复和校验脚本
+├── translations/     # 中文翻译表
+├── docs/             # 维护文档
+├── backups/          # 本地备份，已忽略
+├── dist/             # 生成补丁，已忽略
+└── README.md
 ```
 
-所以更新后汉化补丁通常会失效。更新后不要直接复制旧的 `dist/antigravity-app.zh-CN.asar`，应重新生成适配当前版本的补丁：
+## 贡献
 
-```bash
-cd /Users/fyh/game/antigravity-zh-patcher
-npm run shell:patch
-```
+欢迎提交翻译补充、版本适配和恢复流程改进。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-然后完全退出 Antigravity，再安装新生成的补丁：
+## 安全
 
-```bash
-sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
-```
+如果发现安全风险或可能导致数据损坏的问题，请阅读 [SECURITY.md](SECURITY.md)。
 
-推荐流程：
+## 许可证
 
-1. 先更新 Antigravity。
-2. 打开新版，确认官方版本能正常启动。
-3. 运行 `npm run app:install`。
-4. 重新打开 Antigravity 验证 Settings 页面。
-
-如果不使用一键安装脚本，也可以手动执行：
-
-```bash
-npm run shell:patch
-sudo cp "/Users/fyh/game/antigravity-zh-patcher/dist/antigravity-app.zh-CN.asar" "/Applications/Antigravity.app/Contents/Resources/app.asar"
-```
-
-## 安装补丁前必须退出
-
-覆盖 `app.asar` 前必须确保这些进程都已经退出：
-
-- `Antigravity.app`
-- `Antigravity Helper`
-- `language_server`
-- 其他由 Antigravity 启动的相关子进程
-
-可检查：
-
-```bash
-pgrep -af 'Antigravity|antigravity|language_server'
-```
-
-如果仍有进程，先正常退出 Antigravity；必要时再终止残留进程。不要在 Antigravity 运行时覆盖 `app.asar`，否则可能出现白屏或资源状态不一致。
-
-`npm run app:install` 已经包含这一步。手动 `sudo cp` 时才需要自己检查。
-
-## 当前风险
-
-- 修改 `.app` 内部资源会破坏原始代码签名，这是手动汉化 Electron 应用的常见副作用。
-- 如果 Antigravity 更新了前端结构，旧补丁可能不再适用，需要重新生成并测试。
-- Settings 页面汉化使用 DOM 文案替换方式，不修改 `language_server` 二进制，因此比硬改二进制更容易恢复，但也可能漏掉动态文案。
-- 一旦出现白屏，优先回滚到最近一次可用备份。
-
-## 下一阶段
-
-主应用真正的大量业务 UI 很可能由：
-
-```bash
-/Applications/Antigravity.app/Contents/Resources/bin/language_server
-```
-
-提供。它是二进制文件，不建议直接硬改。后续应先定位是否存在本地端口资源、外部覆盖目录或缓存资源，再决定汉化方式。
+本项目使用 [MIT License](LICENSE)。
