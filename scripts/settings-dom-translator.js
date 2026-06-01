@@ -4,7 +4,8 @@ export function buildSettingsDomTranslator(translations) {
   const translations = ${JSON.stringify(translations)};
   const BLOCKED_CLASSES = ['monaco-editor', 'editor-container', 'terminal', 'output-view', 'debug-console', 'code-view', 'artifact-container', 'suggest-widget'];
   const BLOCKED_TAGS = ['SCRIPT', 'STYLE', 'CODE', 'PRE'];
-  const done = new WeakSet();
+  const selfWrittenText = new WeakMap();
+  const selfWrittenAttrs = new WeakMap();
 
   function isInBlockedZone(node) {
     let curr = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
@@ -64,37 +65,40 @@ export function buildSettingsDomTranslator(translations) {
     return value;
   };
   const translateTextNode = (node) => {
-    if (done.has(node)) return;
     if (isInBlockedZone(node)) return;
+    if (selfWrittenText.get(node) === node.nodeValue) {
+      selfWrittenText.delete(node);
+      return;
+    }
     
     const next = translateExact(node.nodeValue);
     if (next !== node.nodeValue) {
       node.nodeValue = next;
-      done.add(node);
-      setTimeout(() => done.delete(node), 1000);
+      selfWrittenText.set(node, next);
     }
   };
   const translateElement = (element) => {
-    if (done.has(element)) return;
-    
     const tag = element.tagName?.toUpperCase() || "";
     if (BLOCKED_TAGS.includes(tag)) return;
     if (isInBlockedZone(element)) return;
     
-    let changed = false;
     for (const attr of attrs) {
       if (element.hasAttribute?.(attr)) {
         const current = element.getAttribute(attr);
+        const writtenAttrs = selfWrittenAttrs.get(element);
+        if (writtenAttrs?.get(attr) === current) {
+          writtenAttrs.delete(attr);
+          if (writtenAttrs.size === 0) selfWrittenAttrs.delete(element);
+          continue;
+        }
         const next = translateExact(current);
         if (next !== current) {
           element.setAttribute(attr, next);
-          changed = true;
+          const nextWrittenAttrs = selfWrittenAttrs.get(element) ?? new Map();
+          nextWrittenAttrs.set(attr, next);
+          selfWrittenAttrs.set(element, nextWrittenAttrs);
         }
       }
-    }
-    if (changed) {
-      done.add(element);
-      setTimeout(() => done.delete(element), 1000);
     }
   };
   const translateDocumentTitle = () => {
