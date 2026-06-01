@@ -5,15 +5,19 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_DIR="$ROOT_DIR/dist/ide-settings"
 AGENT_SOURCE="$DIST_DIR/jetskiAgent-main.js"
 NLS_SOURCE="$DIST_DIR/nls.messages.json"
+PRODUCT_SOURCE="$DIST_DIR/product.json"
 AGENT_TARGET="/Applications/Antigravity IDE.app/Contents/Resources/app/out/jetskiAgent/main.js"
 NLS_TARGET="/Applications/Antigravity IDE.app/Contents/Resources/app/out/nls.messages.json"
+PRODUCT_TARGET="/Applications/Antigravity IDE.app/Contents/Resources/app/product.json"
 
 cd "$ROOT_DIR"
+
+rm -f "$AGENT_SOURCE" "$NLS_SOURCE" "$PRODUCT_SOURCE"
 
 echo "正在生成 Antigravity IDE Settings 汉化补丁..."
 npm run ide:patch-settings
 
-if [[ ! -f "$AGENT_SOURCE" && ! -f "$NLS_SOURCE" ]]; then
+if [[ ! -f "$AGENT_SOURCE" && ! -f "$NLS_SOURCE" && ! -f "$PRODUCT_SOURCE" ]]; then
   echo "没有发现需要 sudo 安装的 dist 文件，可能已经直接写入成功。"
   exit 0
 fi
@@ -40,6 +44,11 @@ fi
 if [[ -f "$NLS_SOURCE" ]]; then
   echo "安装 IDE NLS messages..."
   sudo cp "$NLS_SOURCE" "$NLS_TARGET"
+fi
+
+if [[ -f "$PRODUCT_SOURCE" ]]; then
+  echo "安装 IDE product.json checksum..."
+  sudo cp "$PRODUCT_SOURCE" "$PRODUCT_TARGET"
 fi
 
 echo "Antigravity IDE Settings 汉化安装完成。请重新打开 Antigravity IDE。"

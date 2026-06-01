@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { backupRoot, resources, workspaceRoot } from "./paths.js";
 import { backupFile, ensureDir, readJson } from "./fs-utils.js";
@@ -12,6 +13,10 @@ const settingsTranslations = readJson(path.join(workspaceRoot, "translations/ant
 const nlsOverrides = readJson(path.join(workspaceRoot, "translations/antigravity-ide-overrides.zh-CN.json"));
 
 const pendingInstalls = [];
+
+function checksum(content) {
+  return crypto.createHash("sha256").update(content).digest("base64").replace(/=+$/, "");
+}
 
 function replaceManagedBlock(source, block) {
   const start = source.indexOf(markerStart);
@@ -37,10 +42,40 @@ function patchSettingsDomTranslator() {
   const next = replaceManagedBlock(original, block);
   if (next === original) {
     console.log("IDE Settings DOM 翻译注入已是最新。");
+    syncProductChecksum(original);
     return false;
   }
 
   writeTargetOrDist(resources.ideAgentBundle, path.join(distDir, "jetskiAgent-main.js"), next, "IDE Settings DOM 翻译");
+  syncProductChecksum(next);
+  return true;
+}
+
+function syncProductChecksum(agentBundleContent) {
+  if (!fs.existsSync(resources.ideProduct)) {
+    throw new Error(`Antigravity IDE product.json not found: ${resources.ideProduct}`);
+  }
+
+  const product = readJson(resources.ideProduct);
+  product.checksums ??= {};
+  const key = "jetskiAgent/main.js";
+  const nextChecksum = checksum(agentBundleContent);
+
+  if (product.checksums[key] === nextChecksum) {
+    console.log("IDE product.json checksum 已是最新。");
+    return false;
+  }
+
+  const backup = backupFile(resources.ideProduct, backupRoot, "ide-product.json");
+  console.log(`已备份 IDE product.json: ${backup}`);
+
+  product.checksums[key] = nextChecksum;
+  writeTargetOrDist(
+    resources.ideProduct,
+    path.join(distDir, "product.json"),
+    `${JSON.stringify(product, null, 2)}\n`,
+    "IDE product.json checksum"
+  );
   return true;
 }
 

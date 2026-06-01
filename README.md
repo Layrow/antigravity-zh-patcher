@@ -102,6 +102,7 @@ IDE 处理三层内容：
 - 安装并启用 `MS-CEINTL.vscode-language-pack-zh-hans`。
 - 生成 `~/.antigravity-ide/languagepacks.json` 和 NLS 缓存。
 - 对 Antigravity 自定义 Settings 窗口注入 DOM 翻译。
+- 同步更新 `product.json` 中被修改文件的 checksum，避免 IDE 完整性检查误报安装损坏。
 
 如果 Settings 补丁无法直接写入 `/Applications`，脚本会生成：
 
@@ -113,6 +114,13 @@ dist/ide-settings/
 
 ```bash
 npm run ide:install-settings
+```
+
+如果已经手动复制过 `jetskiAgent/main.js`，但启动时看到 `Your Antigravity IDE installation appears to be corrupt. Please reinstall.`，通常是 `product.json` 的 checksum 还没有同步。重新运行：
+
+```bash
+npm run ide:patch-settings
+sudo cp "dist/ide-settings/product.json" "/Applications/Antigravity IDE.app/Contents/Resources/app/product.json"
 ```
 
 ## 更新后怎么办
@@ -151,6 +159,7 @@ npm run restore
 ## 风险
 
 - 修改 `.app` 内部资源会破坏原始代码签名。
+- IDE 会根据 `product.json` 中的 checksum 检查部分资源；手动安装 IDE Settings 补丁时必须同时安装生成的 `product.json`。
 - 不要在应用运行时覆盖 `app.asar` 或 IDE bundle，否则可能出现白屏或资源状态不一致。
 - 官方更新后旧补丁可能失效，需要重新生成。
 - DOM 文案替换方式比硬改二进制更容易恢复，但可能漏掉动态文案。
