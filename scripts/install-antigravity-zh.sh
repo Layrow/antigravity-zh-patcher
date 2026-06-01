@@ -7,6 +7,13 @@ PATCHED_ASAR="$ROOT/dist/antigravity-app.zh-CN.asar"
 
 cd "$ROOT"
 
+find_remaining_processes() {
+  ps -axo pid,ppid,comm,args \
+    | grep -Ei 'Antigravity|antigravity|language_server' \
+    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|antigravity-zh(\.sh)?|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
+    || true
+}
+
 echo "==> 退出 Antigravity"
 osascript -e 'tell application "Antigravity" to quit' >/dev/null 2>&1 || true
 sleep 2
@@ -15,12 +22,7 @@ pkill -TERM -f '/Applications/Antigravity.app' >/dev/null 2>&1 || true
 pkill -TERM -f 'language_server --standalone' >/dev/null 2>&1 || true
 sleep 2
 
-remaining="$(
-  ps -axo pid,ppid,comm,args \
-    | grep -Ei 'Antigravity|antigravity|language_server' \
-    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
-    || true
-)"
+remaining="$(find_remaining_processes)"
 
 if [[ -n "$remaining" ]]; then
   echo "==> 仍有残留进程，尝试强制结束"
@@ -29,12 +31,7 @@ if [[ -n "$remaining" ]]; then
   sleep 1
 fi
 
-remaining="$(
-  ps -axo pid,ppid,comm,args \
-    | grep -Ei 'Antigravity|antigravity|language_server' \
-    | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
-    || true
-)"
+remaining="$(find_remaining_processes)"
 
 if [[ -n "$remaining" ]]; then
   echo "仍检测到相关进程，先不覆盖 app.asar："
