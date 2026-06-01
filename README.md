@@ -60,6 +60,28 @@ npm run ide:install-settings
 
 脚本写入 `/Applications` 时可能要求输入 macOS 管理员密码。
 
+也可以使用项目自带入口脚本，之后在任何目录都能通过绝对路径或软链执行：
+
+```bash
+./antigravity-zh.sh install
+./antigravity-zh.sh app
+./antigravity-zh.sh ide
+./antigravity-zh.sh restore
+```
+
+如需做成全局命令：
+
+```bash
+chmod +x /Users/fyh/game/antigravity-zh-patcher/antigravity-zh.sh
+sudo ln -sf /Users/fyh/game/antigravity-zh-patcher/antigravity-zh.sh /usr/local/bin/antigravity-zh
+```
+
+之后可以在任意目录运行：
+
+```bash
+antigravity-zh install
+```
+
 ## 命令说明
 
 | 命令 | 说明 |
@@ -73,6 +95,16 @@ npm run ide:install-settings
 | `npm run ide:patch-settings` | 只生成 IDE Settings 补丁 |
 | `npm run ide:install-settings` | 退出 IDE 并安装 IDE Settings 补丁 |
 | `npm run restore` | 从 `backups/` 恢复最近备份 |
+
+入口脚本命令：
+
+| 命令 | 说明 |
+| --- | --- |
+| `./antigravity-zh.sh install` | 完整汉化主应用和 IDE |
+| `./antigravity-zh.sh app` | 只安装主应用汉化 |
+| `./antigravity-zh.sh ide` | 只安装 IDE 汉化 |
+| `./antigravity-zh.sh preflight` | 校验并探测安装状态 |
+| `./antigravity-zh.sh restore` | 恢复最近备份 |
 
 ## 工作方式
 
