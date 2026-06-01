@@ -85,5 +85,17 @@
   "Predict the location of your next edit and navigates you there with a tab keypress.": "预测您的下一次编辑位置，并通过按 Tab 键导航到该位置。",
   "Context": "上下文",
   "Tab Gitignore Access": "Tab 键访问 Gitignore",
-  "Allow Tab to view and edit the files in .gitignore. Use with caution if your .gitignore lists files containing credentials, secrets, or other sensitive information.": "允许 Tab 键查看和编辑 .gitignore 中的文件。如果您的 .gitignore 中列出了包含凭据、机密或其他敏感信息的文件，请谨慎使用。"
+  "Allow Tab to view and edit the files in .gitignore. Use with caution if your .gitignore lists files containing credentials, secrets, or other sensitive information.": "允许 Tab 键查看和编辑 .gitignore 中的文件。如果您的 .gitignore 中列出了包含凭据、机密或其他敏感信息的文件，请谨慎使用。",
+  "Editor Settings": "编辑器设置",
+  "Configure editor-specific behaviors and shortcuts.": "配置特定的编辑器行为和快捷键。",
+  "Marketplace": "插件市场",
+  "Marketplace Item URL": "插件项目 URL",
+  "Changes the base URL on each extension page. You must restart Antigravity IDE to use the new marketplace after changing this value.": "更改每个扩展页面的基础 URL。更改此值后，必须重启 Antigravity IDE 才能应用新的插件市场。",
+  "Marketplace Gallery URL": "插件市场库 URL",
+  "Changes the base URL for marketplace search results. You must restart Antigravity IDE to use the new marketplace after changing this value.": "更改插件市场搜索结果的基础 URL。更改此值后，必须重启 Antigravity IDE 才能应用新的插件市场。",
+  "Selection Actions": "选择操作",
+  "Show Selection Actions": "显示选择操作",
+  "Show \"Edit\" and \"Chat\" buttons when selecting text in the editor.": "在编辑器中选择文本时，显示“编辑”和“对话”按钮。",
+  "To modify editor settings, open Settings within the editor window.": "如需修改编辑器设置，请在编辑器窗口内打开“设置”。",
+  "Open Editor Settings": "打开编辑器设置"
 }
