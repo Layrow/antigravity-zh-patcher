@@ -9,7 +9,7 @@ cd "$ROOT"
 
 find_remaining_processes() {
   ps -axo pid,ppid,comm,args \
-    | grep -Ei 'Antigravity|antigravity|language_server' \
+    | grep -Ei '/Applications/Antigravity\.app|language_server --standalone' \
     | grep -Ev 'grep -Ei|install-antigravity-zh|patch-antigravity-shell|antigravity-zh(\.sh)?|/Users/fyh/game/antigravity-zh-patcher|Visual Studio Code' \
     || true
 }

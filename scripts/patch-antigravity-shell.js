@@ -109,6 +109,7 @@ function isPatchedAsar(asarPath) {
     return (
       utils.includes("antigravityZhSettingsTranslator") ||
       menu.includes("新建窗口") ||
+      loading.includes("正在启动 Antigravity") ||
       loading.includes("正在加载 Antigravity")
     );
   } catch {
