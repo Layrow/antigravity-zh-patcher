@@ -2,6 +2,29 @@ export function buildSettingsDomTranslator(translations) {
   return `
 (() => {
   const translations = ${JSON.stringify(translations)};
+  const BLOCKED_CLASSES = ['monaco-editor', 'editor-container', 'terminal', 'output-view', 'debug-console', 'code-view', 'artifact-container', 'suggest-widget'];
+  const BLOCKED_TAGS = ['SCRIPT', 'STYLE', 'CODE', 'PRE'];
+  const done = new WeakSet();
+
+  function isInBlockedZone(node) {
+    let curr = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+    let depth = 0;
+    while (curr && depth < 12) {
+      if (curr.nodeType === Node.ELEMENT_NODE) {
+        const tag = curr.tagName.toUpperCase();
+        if (BLOCKED_TAGS.includes(tag)) return true;
+        if (curr.getAttribute('contenteditable') === 'true') return true;
+        
+        const className = curr.className || '';
+        if (typeof className === 'string' && BLOCKED_CLASSES.some(cls => className.includes(cls))) {
+          return true;
+        }
+      }
+      curr = curr.parentElement || (curr.parentNode && curr.parentNode.host);
+      depth++;
+    }
+    return false;
+  }
   const attrs = ["aria-label", "title", "placeholder", "data-tooltip-content"];
   const normalize = (value) => value.replace(/\\s+/g, " ").trim();
   const phraseEntries = Object.entries(translations)
@@ -41,16 +64,37 @@ export function buildSettingsDomTranslator(translations) {
     return value;
   };
   const translateTextNode = (node) => {
+    if (done.has(node)) return;
+    if (isInBlockedZone(node)) return;
+    
     const next = translateExact(node.nodeValue);
-    if (next !== node.nodeValue) node.nodeValue = next;
+    if (next !== node.nodeValue) {
+      node.nodeValue = next;
+      done.add(node);
+      setTimeout(() => done.delete(node), 1000);
+    }
   };
   const translateElement = (element) => {
+    if (done.has(element)) return;
+    
+    const tag = element.tagName?.toUpperCase() || "";
+    if (BLOCKED_TAGS.includes(tag)) return;
+    if (isInBlockedZone(element)) return;
+    
+    let changed = false;
     for (const attr of attrs) {
       if (element.hasAttribute?.(attr)) {
         const current = element.getAttribute(attr);
         const next = translateExact(current);
-        if (next !== current) element.setAttribute(attr, next);
+        if (next !== current) {
+          element.setAttribute(attr, next);
+          changed = true;
+        }
       }
+    }
+    if (changed) {
+      done.add(element);
+      setTimeout(() => done.delete(element), 1000);
     }
   };
   const translateDocumentTitle = () => {
