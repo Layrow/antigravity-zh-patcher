@@ -106,6 +106,30 @@ antigravity-zh install
 | `./antigravity-zh.sh preflight` | 校验并探测安装状态 |
 | `./antigravity-zh.sh restore` | 恢复最近备份 |
 
+## 💡 如何通过 AI 助手自动补充或修改汉化？
+
+如果在使用过程中，您发现了漏译的英文，或者觉得某些中文翻译不够准确，**您可以直接在聊天窗口中命令您的 AI 编码助手（即 Antigravity）来帮您更新词库**！无论是直接发截图还是描述文字，AI 都会自动帮您把对照词条写进 JSON 字典中。
+
+> [!IMPORTANT]
+> **推荐做法（最省心）**：
+> 在 Antigravity 软件中，点击 **“打开文件夹 (Open Folder)”**，直接将本项目目录（即包含当前 `README.md` 的文件夹）作为**项目/工作区**打开，然后在此工作区下与 AI 对话。此时 AI 能够直接感知并读写当前的 `translations` 目录，您不需要提供任何路径，直接发送翻译要求即可。
+
+### 📋 常用提示词（Prompt）模板
+
+#### 1. 方式一：直接在聊天中发送截图（推荐 📸）
+如果您不方便打字，可以直接将未汉化干净的界面截图粘贴发送给 AI，并附带以下指令：
+> **“帮我把这张截图里所有未汉化的英文选项和面板内容补全到 translations 目录下的中文词典中。”**
+
+#### 2. 方式二：直接在聊天中发送文字描述（极速 ✍️）
+如果您只想修改或增加某一个特定词汇，可以直接发送文字描述：
+> **“帮我把漏译的英文 'Allow agent to view and edit files outside of the current workspace' 汉化为 '允许智能体自动查看并编辑当前工作区之外的文件'，并更新到对应的 JSON 字典里。”**
+
+### 🔄 更新生效流程
+1. **命令 AI 更新**：让 AI 自动更新 `translations/` 下的字典文件。
+2. **退出软件**：**完全退出**您的 Antigravity 和 Antigravity IDE。
+3. **重新部署**：在终端中运行 `./antigravity-zh.sh install`（或分别运行 `npm run app:install` 等命令）重新生成并部署汉化补丁。
+4. **重启软件**：重新打开 Antigravity，您的改动即可完美生效！
+
 ## 工作方式
 
 ### Antigravity.app
