@@ -268,6 +268,15 @@
   "No workspace loaded": "未加载工作区",
   "Add folder": "添加文件夹",
   "View logs": "查看日志",
-  "Logs": "日志"
+  "Logs": "日志",
+  "Enable Telemetry": "启用遥测",
+  "When toggled on, Antigravity collects usage data to help Google enhance performance and features.": "启用后，Antigravity 会收集使用数据，帮助 Google 改进性能和功能。",
+  "Marketing Emails": "营销邮件",
+  "Receive product updates, tips, and promotions from Google Antigravity via email.": "通过电子邮件接收 Google Antigravity 的产品更新、技巧和促销信息。",
+  "Your Plan: Google AI Pro": "你的方案：Google AI Pro",
+  "You can upgrade to a Google AI Ultra plan to receive the highest rate limits.": "你可以升级到 Google AI Ultra 方案，以获得最高速率限制。",
+  "Upgrade": "升级",
+  "Email": "邮箱",
+  "Sign Out": "退出登录"
 }
 
