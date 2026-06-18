@@ -277,6 +277,19 @@
   "You can upgrade to a Google AI Ultra plan to receive the highest rate limits.": "你可以升级到 Google AI Ultra 方案，以获得最高速率限制。",
   "Upgrade": "升级",
   "Email": "邮箱",
-  "Sign Out": "退出登录"
+  "Sign Out": "退出登录",
+  "Within each group, models share a weekly limit and a 5-hour limit. Quota is consumed proportionally to the cost of the tokens. Thus, limits will last longer with shorter tasks or using more cost-effective models. The 5-hour limit smooths out aggregate demand to fairly distribute global capacity across all users, while your weekly limit is tied directly to your individual tier.": "在每个模型组内，模型共享周额度与 5 小时额度。额度消耗与 Token 成本成正比。因此，执行较短任务或使用高性价比模型能让额度更耐用。5 小时额度用于平滑总体需求，公平分配全球算力；而周额度则与你个人的订阅方案挂钩。",
+  "Gemini Models": "Gemini 模型",
+  "Claude and GPT models": "Claude 及 GPT 模型",
+  "Weekly Limit": "周额度",
+  "Five Hour Limit": "5 小时额度",
+  "You have used some of your weekly limit, it will fully refresh in ": "你已使用了部分周额度，完全刷新还需 ",
+  "You have used some of your 5-hour limit, it will fully refresh in ": "你已使用了部分 5 小时额度，完全刷新还需 ",
+  " days, ": " 天 ",
+  " day, ": " 天 ",
+  " hours.": " 小时。",
+  " hour.": " 小时。",
+  " minutes.": " 分钟。",
+  " minute.": " 分钟。"
 }
 
